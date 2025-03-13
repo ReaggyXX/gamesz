@@ -7,7 +7,8 @@ class Renderer {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(this.renderer.domElement);
-        
+
+ 
         // Setup lighting
         this.setupLights();
         
