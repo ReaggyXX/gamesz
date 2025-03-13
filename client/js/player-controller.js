@@ -5,7 +5,24 @@ class PlayerController {
         this.player = null;
         this.playerId = null;
         
-        // Movement state
+        init(id) 
+            console.log('PlayerController init called with ID:', id);
+            this.playerId = id;
+            
+            // Create player model
+            const playerColor = Math.random() * 0xffffff;
+            this.player = this.renderer.createPlayerModel(id, playerColor);
+            console.log('Player model created:', this.player);
+            
+            // Setup camera initial position
+            this.updateCamera();
+            console.log('Camera position updated');
+
+        // Set initial camera position so something is visible
+        this.camera.position.set(0, 10, 10);
+        this.camera.lookAt(0, 0, 0);
+        
+        // Movement statea
         this.moveForward = false;
         this.moveBackward = false;
         this.moveLeft = false;
