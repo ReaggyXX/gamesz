@@ -9,7 +9,7 @@ class GameServer {
         
         // Game settings
         this.maxPlayers = 10;
-        this.minPlayersToStart = 2;
+        this.minPlayersToStart = 1;
         this.damagePerShot = 20;
         
         // Game state
