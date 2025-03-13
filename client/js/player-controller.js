@@ -6,9 +6,7 @@ class PlayerController {
         this.playerId = null;
         
         init(id) 
-            console.log('PlayerController init called with ID:', id);
-            this.playerId = id;
-            
+
             // Create player model
             const playerColor = Math.random() * 0xffffff;
             this.player = this.renderer.createPlayerModel(id, playerColor);

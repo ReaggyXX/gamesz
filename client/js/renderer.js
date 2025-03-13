@@ -7,8 +7,11 @@ class Renderer {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(this.renderer.domElement);
+    
+        // Store objects and players
+        this.objects = [];
+        this.players = {};
 
- 
         // Setup lighting
         this.setupLights();
         
@@ -21,10 +24,7 @@ class Renderer {
         
         // Handle window resize
         window.addEventListener('resize', () => this.onWindowResize(), false);
-        
-        // Store objects and players
-        this.objects = [];
-        this.players = {};
+     
     }
     
     setupLights() {
@@ -45,56 +45,6 @@ class Renderer {
         directionalLight.shadow.camera.top = 100;
         directionalLight.shadow.camera.bottom = -100;
         this.scene.add(directionalLight);
-    }
-    
-    setupGround() {
-        // Create ground plane
-        const groundGeometry = new THREE.PlaneGeometry(200, 200);
-        const groundMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0x3a9d42,
-            roughness: 0.8,
-            metalness: 0.2
-        });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-        ground.rotation.x = -Math.PI / 2;
-        ground.receiveShadow = true;
-        this.scene.add(ground);
-        
-        // Add some random obstacles
-        this.addObstacles();
-    }
-    
-    addObstacles() {
-        const colors = [0x8a8a8a, 0x6b6b6b, 0x595959];
-        
-        // Add some cubes as obstacles
-        for (let i = 0; i < 30; i++) {
-            const size = 2 + Math.random() * 3;
-            const height = 1 + Math.random() * 4;
-            
-            const geometry = new THREE.BoxGeometry(size, height, size);
-            const material = new THREE.MeshStandardMaterial({ 
-                color: colors[Math.floor(Math.random() * colors.length)],
-                roughness: 0.7,
-                metalness: 0.1
-            });
-            
-            const cube = new THREE.Mesh(geometry, material);
-            
-            // Random position within a circle
-            const radius = 80 * Math.sqrt(Math.random());
-            const theta = Math.random() * 2 * Math.PI;
-            
-            cube.position.x = radius * Math.cos(theta);
-            cube.position.y = height / 2;
-            cube.position.z = radius * Math.sin(theta);
-            
-            cube.castShadow = true;
-            cube.receiveShadow = true;
-            
-            this.scene.add(cube);
-            this.objects.push(cube);
-        }
     }
     
     createBoundary(radius) {
